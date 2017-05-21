@@ -1,0 +1,69 @@
+{
+    "center": {
+        "lat": 24.5150333333333,
+        "lng": 93.7947
+    },
+    "nodes": [
+        {
+            "latlng": {
+                "lat": 24.5150333333333,
+                "lng": 93.7947
+            },
+            "objtype": "DTR",
+            "spec": "100KVA",
+            "symboltag": "EXISTING",
+            "label": "100KVA",
+            "node": "DTR",
+            "sbranches": [
+                0,
+                3
+            ]
+        },
+        {
+            "latlng": {
+                "lat": 24.5153833333333,
+                "lng": 93.7948833333333
+            },
+            "objtype": "POLE",
+            "spec": "9m",
+            "symboltag": "NEW",
+            "label": "P1",
+            "node": "P1",
+            "sbranches": [
+                0,
+                0,
+                2
+            ]
+        },
+        {
+            "latlng": {
+                "lat": 24.5149166666667,
+                "lng": 93.7949333333333
+            },
+            "objtype": "POLE",
+            "spec": "9m",
+            "symboltag": "NEW",
+            "label": "P2",
+            "node": "P2",
+            "sbranches": [
+                0,
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "latlng": {
+                "lat": 24.51465,
+                "lng": 93.7952333333333
+            },
+            "objtype": "POLE",
+            "spec": "9m",
+            "symboltag": "NEW",
+            "label": "P3",
+            "node": "P3",
+            "sbranches": [
+            ]
+        }
+    ]
+}

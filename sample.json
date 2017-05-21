@@ -1,0 +1,71 @@
+{
+    "data1": [
+        [
+            "LATLNG",
+            "OBJTYPE",
+            "SPEC?",
+            "SYMTAG",
+            "LABEL",
+            "NODE",
+            "DTR",
+            "P1",
+            "P2",
+            "P3",
+            "P4"
+        ],
+        [
+            "12.1, 80.2",
+            "DTR",
+            "100KVA",
+            null,
+            "Upgraded",
+            "DTR",
+            null,
+            "3"
+        ],
+        [
+            "12.1, 80.2",
+            "POLE",
+            "9m",
+            "EXISTING",
+            null,
+            "P1",
+            null,
+            null,
+            "2"
+        ],
+        [
+            "12.1, 80.2",
+            "POLE",
+            "8m",
+            "MISSING",
+            null,
+            "P2",
+            null,
+            null,
+            null,
+            "2"
+        ],
+        [
+            "12.1, 80.2",
+            "POLE",
+            "9m",
+            "NEW",
+            null,
+            "P3",
+            null,
+            null,
+            null,
+            null,
+            "1"
+        ],
+        [
+            null,
+            null,
+            null,
+            null,
+            null,
+            "P4"
+        ]
+    ]
+}Ï

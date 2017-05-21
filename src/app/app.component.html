@@ -1,3 +1,7 @@
-<h1>
-  {{title}}
-</h1>
+<h1>gSLD</h1>
+<div id="modules" *ngIf="!hideNav">
+  <h2>Select a module</h2>
+  <button routerLink='/sld' (click)="hideNav = true">Prepare SLD (Distribution)</button>
+  <button [disabled]='true'>Parse GPX Waypoints</button>
+</div>
+<router-outlet></router-outlet>

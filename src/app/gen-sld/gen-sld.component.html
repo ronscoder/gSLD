@@ -1,0 +1,24 @@
+<h2>Prepare SLD</h2>
+<div id="info" *ngIf="!showResult">
+<em>Instructions</em>
+<kbd>
+  <ol>
+    <li>Download the data format (xlsx) | <a type="button" href="assets/sample.xlsx">Download form/template</a></li>
+    <li>Prepare the data | <a href="#">See guide</a></li>
+    <li>Upload the file | <button (click)="showDrop()" [disabled]="result_json">Upload</button>
+    </li>
+
+    <li>Review & Validate the data | <button (click)="reviewData()" [disabled]="!ifShowDrop">Review Data</button></li>
+    <li>Generate SLD overlayed Map | <button (click)="showRenderedMap()" [disabled]="!sldData">Render Map</button></li>
+    <li>Adjust zoom level, Map feature type.</li>
+    <li>If satisfied, print</li>
+  </ol>
+</kbd>
+<div id="msg" style="color:red"><kbd>{{msg}}</kbd></div>
+<div id="drop"><span *ngIf="ifShowDrop"> Drop a file here</span></div>
+
+<div id="right">
+  <div id="hot" style="overflow: scroll" class="handsontable"></div>
+</div>
+</div>
+<app-rendered-map [mapData]="mapData" *ngIf="showResult"></app-rendered-map>
