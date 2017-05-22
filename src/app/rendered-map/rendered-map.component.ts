@@ -26,7 +26,7 @@ const poleMarkerSVG = {
 }
 
 const dtrPng = {
-  url: '/assets/symbols/dtr_b_w.png',
+  url: './assets/symbols/dtr_b_w.png',
   // This marker is 20 pixels wide by 32 pixels high.
   // size: new google.maps.Size(20, 32),
   // The origin for this image is (0, 0).
@@ -35,7 +35,7 @@ const dtrPng = {
   anchor: new google.maps.Point(32 / 2, 24 / 2)
 };
 const polePng = {
-  url: '/assets/symbols/pole_b_t.png',
+  url: './assets/symbols/pole_b_t.png',
   // This marker is 20 pixels wide by 32 pixels high.
   // size: new google.maps.Size(20, 32),
   // The origin for this image is (0, 0).
