@@ -1,0 +1,12 @@
+<div id="drop" style="margin: auto;margin-top:1em;"><span>Drop your data file here</span></div>
+<br>
+<h4>Review data</h4>
+<div style="display:flex">
+  <div id="tablexls" style="margin:auto;padding:1em;">
+    <div id="hot" style="overflow:scroll;" class="handsontable"></div>
+  </div>
+  <div id="action">
+    <p *ngIf="msg">{{msg}}</p>
+    <button (click)="confirm()">Confirm data</button>
+  </div>
+</div>

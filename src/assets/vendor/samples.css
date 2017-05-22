@@ -126,14 +126,14 @@ ul ul {
  */
 
 .handsontable {
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
   color: #000;
   z-index: 2;
   font-size: 12px;
 }
 
 .handsontable li {
-  margin-bottom: 0; /* will be not needed after Handsontable 0.8.16 */
+  /*margin-bottom: 0;  will be not needed after Handsontable 0.8.16 */
 }
 
 /**

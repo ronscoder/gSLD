@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Http } from '@angular/http';
+import { DateserviceService } from '../dateservice.service';
 declare var google: any;
+declare var result_json: any;
 
 const mapdata = {
   lat: -25.363, lng: 131.044
@@ -52,12 +54,18 @@ const poleSymb = {
   styleUrls: ['./rendered-map.component.css']
 })
 export class RenderedMapComponent implements OnInit {
-  @Input() mapData: any;
+  mapData: any;
   map: any;
   markers = []
   msg: string;
+  title = 'SLD for';
+  paper = 'a4';
+  printWidth;
+  printHeight;
+
   constructor(
-    private http: Http
+    private http: Http,
+    private dataservice: DateserviceService
   ) { }
 
   ngOnInit() {
@@ -70,14 +78,39 @@ export class RenderedMapComponent implements OnInit {
     //   this.prepareMap(fieldata);
     //   // this.prepareMap1();
     // });
+    this.mapData = this.dataservice.mapData;
     if (!this.mapData) {
-      this.msg = 'Error: No data';
-      return;
+      /// Try loading from local storage
+      this.mapData = JSON.parse(localStorage.getItem('mapdata'));
+      if (!this.mapData) {
+        this.msg = 'Error: No data';
+        return;
+      }
+
     }
     this.prepareMap(this.mapData);
+    google.maps.event.trigger(this.map, 'resize');
+    this.map.setCenter(this.map.getCenter());
   }
 
+  setPaper() {
+    console.log('setting paper size');
+    switch (this.paper) {
+      case 'a4':
+        this.printWidth = `${210 - 20}mm`;
+        this.printHeight = `${297 - 20}mm`;
+        break;
+      case 'legal':
+        this.printWidth = `${216 - 20}mm`;
+        this.printHeight = `${356 - 20}mm`;
+        break;
+      default:
+        this.printWidth = `${210 - 20}mm`;
+        this.printHeight = `${297 - 20}mm`;
+        break;
+    }
 
+  }
   importMapData() {
     return this.http.get('src/app/data.json')
   }
@@ -144,13 +177,13 @@ export class RenderedMapComponent implements OnInit {
     //  1,2,3
     let color = '';
     switch (size) {
-      case 1:
+      case '1':
         color = '#FF0000';
         break;
-      case 2:
+      case '2':
         color = '#00FF00';
         break;
-      case 3:
+      case '3':
         color = '#0000FF';
         break;
 
@@ -217,4 +250,14 @@ export class RenderedMapComponent implements OnInit {
     marker.setMap(this.map);
   }
 
+  ifPrint = false;
+
+  print() {
+    window.addEventListener('beforeprint', () => {
+      console.log('beforeprint handling...')
+      google.maps.event.trigger(this.map, 'resize');
+      this.map.setCenter(this.map.getCenter());
+    });
+    window.print();
+  }
 }

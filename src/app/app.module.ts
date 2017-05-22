@@ -7,12 +7,15 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { RenderedMapComponent } from './rendered-map/rendered-map.component';
 import { GenSLDComponent } from './gen-sld/gen-sld.component';
+import { UploadfileComponent } from './uploadfile/uploadfile.component';
+import { DateserviceService } from './dateservice.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     RenderedMapComponent,
-    GenSLDComponent
+    GenSLDComponent,
+    UploadfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -20,10 +23,11 @@ import { GenSLDComponent } from './gen-sld/gen-sld.component';
     HttpModule,
     RouterModule.forRoot([
       { path: 'sld', component: GenSLDComponent },
-      { path: 'renderedmap', component: RenderedMapComponent }
+      { path: 'renderedmap', component: RenderedMapComponent },
+      { path: 'uploadfile', component: UploadfileComponent }
     ])
   ],
-  providers: [],
+  providers: [DateserviceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

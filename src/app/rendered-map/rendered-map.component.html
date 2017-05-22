@@ -1,4 +1,23 @@
-<h3>Result rendered</h3>
-{{msg}}
-<div id="map">
+<div class="nonprint" *ngIf="!ifPrint">
+    <h3>Result rendered</h3>
+    <em>Adjust map by dragging & zooming</em>
+    <p class="warning" *ngIf="msg">{{msg}}</p>
+    <br><br>
+    <label>Enter SLD title</label>
+    <input type="text" placeholder="Enter SLD title here" [(ngModel)]="title" style="width:50ch">
+    <br>
+    <b>Select print paper size</b>
+    <br>
+    <label>
+    <input type="radio" value="legal" [(ngModel)]="paper">Legal</label>
+    <br>
+    <label>
+        <input type="radio" value="a4" [(ngModel)]="paper">A4</label>
+    <br>
+    <button (click)="print()">Print</button>
+</div>
+<br>
+<div id="print" style="border:1px dashed black; padding:4px;">
+    <h4>{{title}}</h4>
+    <div id="map" [ngClass]="{'a4': paper==='a4', 'legal': paper==='legal'}"></div>
 </div>

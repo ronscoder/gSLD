@@ -1,45 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import * as XLSX from 'xlsx';
-import { Router } from '@angular/router'
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { Router } from '@angular/router';
+import { DateserviceService } from '../dateservice.service';
+
 declare var result_json: any;
 declare var xlxsMain: any;
 
 @Component({
-  selector: 'app-gen-sld',
-  templateUrl: './gen-sld.component.html',
-  styleUrls: ['./gen-sld.component.css']
+  selector: 'app-uploadfile',
+  templateUrl: './uploadfile.component.html',
+  styleUrls: ['./uploadfile.component.css']
 })
-export class GenSLDComponent implements OnInit {
-  steps = [
-    'Download the data format (xlsx',
-    'Prepare the data',
-    'Upload the file',
-    'Review & Validate the data',
-    'Click on <kbd>Render Map</kbd> to generate SLD overlayed Map',
-    'Adjust zoom level, Map feature type',
-    'If satisfied, print'
-  ];
-
-  ifShowDrop = false;
-  stephead = -1;
-  sldData: any;
-  dataReviewed = false;
+export class UploadfileComponent implements OnInit, OnChanges {
+  confirmed = false;
   msg: string;
   mapData: any;
-  showResult = false;
-  ifGuide = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private dataservice: DateserviceService
   ) { }
 
   ngOnInit() {
-    this.sldData = result_json;
+    xlxsMain();
   }
 
-  showDrop() {
-    this.ifShowDrop = true;
-    xlxsMain();
+  ngOnChanges() {
+
+  }
+
+  confirm() {
+    if (!result_json) {
+      this.msg = 'Error: Input data. Verify again';
+      return;
+    }
+    this.confirmed = true;
+    this.reviewData();
+    /// Navigate
+    this.router.navigate(['renderedmap']);
   }
 
   reviewData() {
@@ -47,10 +44,8 @@ export class GenSLDComponent implements OnInit {
       this.msg = 'Data not imported!';
       return;
     }
-    this.dataReviewed = true;
-    this.sldData = result_json;
-    console.log(this.sldData);
-    this.prepareMapdate(this.sldData);
+
+    this.prepareMapdate(result_json);
   }
 
   prepareMapdate(sldData) {
@@ -80,13 +75,17 @@ export class GenSLDComponent implements OnInit {
           lat: +center[0], lng: +center[1]
         };
         console.log(this.mapData);
-
+        this.dataservice.mapData = this.mapData;
+        this.saveDateLocal(this.dataservice.mapData);
       }
     }
   }
-  showRenderedMap() {
-    this.showResult = true;
-    // this.router.navigate(['renderedmap']);
-  }
 
+  saveDateLocal(data) {
+    localStorage.setItem('mapdata', JSON.stringify(data));
+  }
+  toMap() {
+    // this.router.navigate(['renderedmap']);
+    // return 0;
+  }
 }

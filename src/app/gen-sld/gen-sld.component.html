@@ -1,24 +1,33 @@
 <h2>Prepare SLD</h2>
-<div id="info" *ngIf="!showResult">
-<em>Instructions</em>
-<kbd>
+<div id="info">
+  <em>Instructions</em>
+  <kbd>
   <ol>
-    <li>Download the data format (xlsx) | <a type="button" href="assets/sample.xlsx">Download form/template</a></li>
-    <li>Prepare the data | <a href="#">See guide</a></li>
-    <li>Upload the file | <button (click)="showDrop()" [disabled]="result_json">Upload</button>
-    </li>
-
-    <li>Review & Validate the data | <button (click)="reviewData()" [disabled]="!ifShowDrop">Review Data</button></li>
-    <li>Generate SLD overlayed Map | <button (click)="showRenderedMap()" [disabled]="!sldData">Render Map</button></li>
-    <li>Adjust zoom level, Map feature type.</li>
-    <li>If satisfied, print</li>
-  </ol>
-</kbd>
-<div id="msg" style="color:red"><kbd>{{msg}}</kbd></div>
-<div id="drop"><span *ngIf="ifShowDrop"> Drop a file here</span></div>
-
-<div id="right">
-  <div id="hot" style="overflow: scroll" class="handsontable"></div>
+    <li><p>Download the data format (xlsx)</p><a type="button" href="assets/sample.xlsx">Download form/template</a></li>
+    <li><p>Prepare the data file</p><a href="#" (click)="ifGuide = true; false">See guide</a></li>
+  </ol></kbd>
 </div>
+<div id="guide" *ngIf="ifGuide">
+  📞 <a href="tel:+917085098635">+91 7085 098635</a>
+</div>
+<h4>Next</h4>
+<a href="#" routerLink="/uploadfile">Upload data file</a>
+<!--
+  <li>Upload the file | <button (click)="showDrop()" [disabled]="result_json">Upload</button>
+  </li>
+
+  <li>Review & Validate the data | <button (click)="reviewData()" [disabled]="!sldData">Review Data</button></li>
+  <li>Generate SLD overlayed Map | <button (click)="showRenderedMap()" [disabled]="!sldData">Render Map</button></li>
+  <li>Adjust zoom level, Map feature type.</li>
+  <li>If satisfied, print</li>
+  </ol>
+  </kbd>
+  <div id="msg" style="color:red"><kbd>{{msg}}</kbd></div>
+  <div id="drop" [hidden]="!ifShowDrop"><span> Drop a file here</span></div>
+
+  <div id="right">
+    <div id="hot" style="overflow: scroll" class="handsontable"></div>
+  </div>
 </div>
 <app-rendered-map [mapData]="mapData" *ngIf="showResult"></app-rendered-map>
+-->

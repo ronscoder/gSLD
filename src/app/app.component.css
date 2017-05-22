@@ -1,10 +1,7 @@
-button {
-    width: 300px;
-}
-
 #modules {
     margin: auto;
     display: flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
+    /*flex-direction: column;
+    -webkit-flex-direction: column;*/
 }
+
