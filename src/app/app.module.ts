@@ -9,6 +9,7 @@ import { RenderedMapComponent } from './rendered-map/rendered-map.component';
 import { GenSLDComponent } from './gen-sld/gen-sld.component';
 import { UploadfileComponent } from './uploadfile/uploadfile.component';
 import { DateserviceService } from './dateservice.service';
+import { GpxComponent } from './gpx/gpx.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { DateserviceService } from './dateservice.service';
     RenderedMapComponent,
     GenSLDComponent,
     UploadfileComponent,
+    GpxComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,8 @@ import { DateserviceService } from './dateservice.service';
     RouterModule.forRoot([
       { path: 'sld', component: GenSLDComponent },
       { path: 'renderedmap', component: RenderedMapComponent },
-      { path: 'uploadfile', component: UploadfileComponent }
+      { path: 'uploadfile', component: UploadfileComponent },
+      { path: 'gpx', component: GpxComponent }
     ])
   ],
   providers: [DateserviceService],

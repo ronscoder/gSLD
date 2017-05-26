@@ -32,4 +32,38 @@ export class DateserviceService {
     }
     return gpsdata;
   }
+
+  prepareMapdata(sldData) {
+    const mapData: { node: any, center: any } = { node: {}, center: {} };
+    for (let key in sldData) {
+      if (sldData[key]) {
+        const data = sldData[key];
+        console.log(key);
+        const header = data[0];
+        let nodes = [];
+        for (let i = 1; i < data.length; i++) {
+          let node = {
+            latlng: { lat: +data[i][0], lng: +data[i][1] },
+            objtype: data[i][2],
+            spec: data[i][3],
+            symboltag: data[i][4],
+            label: data[i][5],
+            node: data[i][6],
+            sbranches: data[i].slice(7)
+          }
+          nodes.push(node);
+        }
+        mapData.node = nodes;
+        /// Determine center auto... choose the middle value
+        console.log('finding center node')
+        const center = data[Math.round((data.length) / 2)];
+        mapData.center = {
+          lat: +center[0], lng: +center[1]
+        };
+        // console.log(this.mapData);
+        return mapData;
+
+      }
+    }
+  }
 }

@@ -2,12 +2,12 @@
   <h2 style="box-shadow: 1px 1px 1px">GSLD</h2>
   <div id="modules">
     <button routerLink='/sld'>Prepare SLD (Distribution)</button>
-    <button [disabled]='true'>Parse GPX Waypoints</button>
+    <button routerLink='/gpx'>Parse GPX Waypoints</button>
   </div>
 </div>
 <br>
 <router-outlet></router-outlet>
 
-<div id="map2" style="width: 90%; height: 400px;"></div>
+<!--<div id="map2" style="width: 90%; height: 400px;"></div>
 
-<input type="file" id="file" (change)="handleFiles($event.target.files)" accept=".gpx">
+<input type="file" id="file" (change)="handleFiles($event.target.files)" accept=".gpx">-->
