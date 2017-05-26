@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class DateserviceService {
-  mapData: any;
+  xlsxdata: any;
+  nextComponent: any;
   constructor() { }
 
   parseXML(file, cb) {
@@ -19,7 +20,7 @@ export class DateserviceService {
     const doc = parser.parseFromString(xmltext, 'text/xml');
     const gpx = doc.getElementsByTagName('gpx')[0];
     const wpts = gpx.getElementsByTagName('wpt');
-    let gpsdata = [];
+    const gpsdata = [];
     for (let i = 0; i < wpts.length; i++) {
       const wpt = wpts[i];
       gpsdata.push(
@@ -33,14 +34,14 @@ export class DateserviceService {
     return gpsdata;
   }
 
-  prepareMapdata(sldData) {
-    const mapData: { node: any, center: any } = { node: {}, center: {} };
+  preparexlsxdata(sldData) {
+    const xlsxdata: { node: any, center: any } = { node: {}, center: {} };
     for (let key in sldData) {
       if (sldData[key]) {
         const data = sldData[key];
         console.log(key);
         const header = data[0];
-        let nodes = [];
+        const nodes = [];
         for (let i = 1; i < data.length; i++) {
           let node = {
             latlng: { lat: +data[i][0], lng: +data[i][1] },
@@ -53,15 +54,15 @@ export class DateserviceService {
           }
           nodes.push(node);
         }
-        mapData.node = nodes;
+        xlsxdata.node = nodes;
         /// Determine center auto... choose the middle value
         console.log('finding center node')
         const center = data[Math.round((data.length) / 2)];
-        mapData.center = {
+        xlsxdata.center = {
           lat: +center[0], lng: +center[1]
         };
-        // console.log(this.mapData);
-        return mapData;
+        // console.log(this.xlsxdata);
+        return xlsxdata;
 
       }
     }

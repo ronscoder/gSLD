@@ -4,7 +4,7 @@ import { DateserviceService } from '../dateservice.service';
 declare var google: any;
 declare var result_json: any;
 
-const mapdata = {
+const xlsxdata = {
   lat: -25.363, lng: 131.044
 }
 const goldStar = {
@@ -54,7 +54,7 @@ const poleSymb = {
   styleUrls: ['./rendered-map.component.css']
 })
 export class RenderedMapComponent implements OnInit {
-  mapData: any;
+  xlsxdata: any;
   map: any;
   markers = []
   msg: string;
@@ -69,7 +69,7 @@ export class RenderedMapComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.importMapData().subscribe((data) => {
+    // this.importxlsxdata().subscribe((data) => {
     //   const fieldata = data.json();
     //   if (!fieldata) {
     //     this.msg = 'Error: No data';
@@ -78,17 +78,17 @@ export class RenderedMapComponent implements OnInit {
     //   this.prepareMap(fieldata);
     //   // this.prepareMap1();
     // });
-    this.mapData = this.dataservice.mapData;
-    if (!this.mapData) {
+    this.xlsxdata = this.dataservice.xlsxdata;
+    if (!this.xlsxdata) {
       /// Try loading from local storage
-      this.mapData = JSON.parse(localStorage.getItem('mapdata'));
-      if (!this.mapData) {
+      this.xlsxdata = JSON.parse(localStorage.getItem('xlsxdata'));
+      if (!this.xlsxdata) {
         this.msg = 'Error: No data';
         return;
       }
 
     }
-    this.prepareMap(this.mapData);
+    this.prepareMap(this.xlsxdata);
     google.maps.event.trigger(this.map, 'resize');
     this.map.setCenter(this.map.getCenter());
   }
@@ -111,7 +111,7 @@ export class RenderedMapComponent implements OnInit {
     }
 
   }
-  importMapData() {
+  importxlsxdata() {
     return this.http.get('src/app/data.json')
   }
 
@@ -201,7 +201,7 @@ export class RenderedMapComponent implements OnInit {
     return 'm1 1 ';
   }
   prepareMap1() {
-    const latLng = mapdata;
+    const latLng = xlsxdata;
     // Load map
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 4,

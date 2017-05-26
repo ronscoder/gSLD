@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { DateserviceService } from '../dateservice.service';
 declare var result_json: any;
 declare var xlxsMain: any;
 
@@ -30,7 +31,8 @@ export class GenSLDComponent implements OnInit {
   ifGuide = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private dataservice: DateserviceService
   ) { }
 
   ngOnInit() {
@@ -88,5 +90,8 @@ export class GenSLDComponent implements OnInit {
     this.showResult = true;
     // this.router.navigate(['renderedmap']);
   }
-
+  uploadFile() {
+    this.dataservice.nextComponent = 'renderedmap';
+    this.router.navigate(['uploadfile']);
+  }
 }

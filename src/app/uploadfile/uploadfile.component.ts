@@ -1,10 +1,10 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { DateserviceService } from '../dateservice.service';
 
 declare var result_json: any;
 declare var xlxsMain: any;
-
+declare var handleFileInput: any;
 @Component({
   selector: 'app-uploadfile',
   templateUrl: './uploadfile.component.html',
@@ -13,8 +13,7 @@ declare var xlxsMain: any;
 export class UploadfileComponent implements OnInit, OnChanges {
   confirmed = false;
   msg: string;
-  mapData: any;
-
+  xlsxdata: any;
   constructor(
     private router: Router,
     private dataservice: DateserviceService
@@ -36,7 +35,7 @@ export class UploadfileComponent implements OnInit, OnChanges {
     this.confirmed = true;
     this.reviewData();
     /// Navigate
-    this.router.navigate(['renderedmap']);
+    this.router.navigate([this.dataservice.nextComponent]);
   }
 
   reviewData() {
@@ -67,22 +66,22 @@ export class UploadfileComponent implements OnInit, OnChanges {
           }
           nodes.push(node);
         }
-        this.mapData = { nodes: nodes };
+        this.xlsxdata = { nodes: nodes };
         /// Determine center auto... choose the middle value
         console.log('finding center node')
         const center = data[Math.round((data.length) / 2)];
-        this.mapData['center'] = {
+        this.xlsxdata['center'] = {
           lat: +center[0], lng: +center[1]
         };
-        console.log(this.mapData);
-        this.dataservice.mapData = this.mapData;
-        this.saveDateLocal(this.dataservice.mapData);
+        console.log(this.xlsxdata);
+        this.dataservice.xlsxdata = this.xlsxdata;
+        this.saveDateLocal(this.dataservice.xlsxdata);
       }
     }
   }
 
   saveDateLocal(data) {
-    localStorage.setItem('mapdata', JSON.stringify(data));
+    localStorage.setItem('xlsxdata', JSON.stringify(data));
   }
   toMap() {
     // this.router.navigate(['renderedmap']);

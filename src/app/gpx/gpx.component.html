@@ -1,3 +1,27 @@
 <h4>Select waypoint gpx file</h4><input type="file" id="file" (change)="handleFiles($event.target.files)" accept=".gpx">
+<br>
+<div *ngIf="parsedGpx">
+    <button (click)="copytoclipboard(gpsdata)" class="ui button">Copy</button>
+    <p class="ui yellow label" *ngIf="msg">{{msg}}</p>
+    <div style="height:20em; overflow:scroll">
+        <table id="gpsdata" class="ui compact table">
+            <thead>
+                <th>Ref#</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Time</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let g of parsedGpx">
+                    <td>{{g.name}}</td>
+                    <td>{{g.latlng?.lat}}</td>
+                    <td>{{g.latlng?.lng}}</td>
+                    <td>{{g.time | date: 'medium'}}</td>
+                </tr>
+            </tbody>
 
-<div id="map2" style="width: 90%; height: 400px;"></div>
+        </table>
+    </div>
+    <button class="ui green button">Show map</button>
+    <div id="map2" style="width: 90%; height: 400px;"></div>
+</div>
