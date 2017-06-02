@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Http } from '@angular/http';
 import { DateserviceService } from '../dateservice.service';
+
 declare var google: any;
+
 declare var result_json: any;
 
 const xlsxdata = {
@@ -25,28 +27,7 @@ const poleMarkerSVG = {
   strokeWeight: 14
 }
 
-const dtrPng = {
-  url: './assets/symbols/dtr_b_w.png',
-  // This marker is 20 pixels wide by 32 pixels high.
-  // size: new google.maps.Size(20, 32),
-  // The origin for this image is (0, 0).
-  origin: new google.maps.Point(0, 0),
-  // The anchor for this image is the base of the flagpole at (0, 32).
-  anchor: new google.maps.Point(32 / 2, 24 / 2)
-};
-const polePng = {
-  url: './assets/symbols/pole_b_t.png',
-  // This marker is 20 pixels wide by 32 pixels high.
-  // size: new google.maps.Size(20, 32),
-  // The origin for this image is (0, 0).
-  origin: new google.maps.Point(0, 0),
-  // The anchor for this image is the base of the flagpole at (0, 32).
-  anchor: new google.maps.Point(42, 32)
-};
-const poleSymb = {
-  path: google.maps.SymbolPath.CIRCLE,
-  scale: 3
-}
+
 
 @Component({
   selector: 'app-rendered-map',
@@ -66,7 +47,9 @@ export class RenderedMapComponent implements OnInit {
   constructor(
     private http: Http,
     private dataservice: DateserviceService
-  ) { }
+  ) {
+
+  }
 
   ngOnInit() {
     // this.importxlsxdata().subscribe((data) => {
@@ -124,6 +107,28 @@ export class RenderedMapComponent implements OnInit {
 
     });
     /// PREPARE MARKERS ///
+    const dtrPng = {
+      url: './assets/symbols/dtr_b_w.png',
+      // This marker is 20 pixels wide by 32 pixels high.
+      // size: new google.maps.Size(20, 32),
+      // The origin for this image is (0, 0).
+      origin: new google.maps.Point(0, 0),
+      // The anchor for this image is the base of the flagpole at (0, 32).
+      anchor: new google.maps.Point(32 / 2, 24 / 2)
+    };
+    const polePng = {
+      url: './assets/symbols/pole_b_t.png',
+      // This marker is 20 pixels wide by 32 pixels high.
+      // size: new google.maps.Size(20, 32),
+      // The origin for this image is (0, 0).
+      origin: new google.maps.Point(0, 0),
+      // The anchor for this image is the base of the flagpole at (0, 32).
+      anchor: new google.maps.Point(42, 32)
+    };
+    const poleSymb = {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 3
+    }
     const branches = [];
     for (let i = 0; i < fieldata.nodes.length; i++) {
       const node = fieldata.nodes[i];
@@ -224,7 +229,28 @@ export class RenderedMapComponent implements OnInit {
     this.map.data.loadGeoJson('../assets/geoJSONSample.json');
     // add market to map
     this.addMarker(marker);
-
+    const dtrPng = {
+      url: './assets/symbols/dtr_b_w.png',
+      // This marker is 20 pixels wide by 32 pixels high.
+      // size: new google.maps.Size(20, 32),
+      // The origin for this image is (0, 0).
+      origin: new google.maps.Point(0, 0),
+      // The anchor for this image is the base of the flagpole at (0, 32).
+      anchor: new google.maps.Point(32 / 2, 24 / 2)
+    };
+    const polePng = {
+      url: './assets/symbols/pole_b_t.png',
+      // This marker is 20 pixels wide by 32 pixels high.
+      // size: new google.maps.Size(20, 32),
+      // The origin for this image is (0, 0).
+      origin: new google.maps.Point(0, 0),
+      // The anchor for this image is the base of the flagpole at (0, 32).
+      anchor: new google.maps.Point(42, 32)
+    };
+    const poleSymb = {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 3
+    }
     const marker_t1 = new google.maps.Marker({
       position: { lat: -36.963, lng: 131.044 },
       title: 'SLD Sample 1',

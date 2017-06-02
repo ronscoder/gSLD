@@ -10,6 +10,8 @@ import { GenSLDComponent } from './gen-sld/gen-sld.component';
 import { UploadfileComponent } from './uploadfile/uploadfile.component';
 import { DateserviceService } from './dateservice.service';
 import { GpxComponent } from './gpx/gpx.component';
+import { ProjectsModule } from './projects/projects.module';
+import { NetworkComponent } from './projects/network/network.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +25,17 @@ import { GpxComponent } from './gpx/gpx.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    ProjectsModule,
     RouterModule.forRoot([
       { path: 'sld', component: GenSLDComponent },
       { path: 'renderedmap', component: RenderedMapComponent },
       { path: 'uploadfile', component: UploadfileComponent },
-      { path: 'gpx', component: GpxComponent }
-    ])
+      { path: 'gpx', component: GpxComponent },
+      // { path: 'projects', component: ProjectsModule }.
+      // { path: 'projects', redirectTo: '/projects', pathMatch: 'full' },
+
+    ],
+    )
   ],
   providers: [DateserviceService],
   bootstrap: [AppComponent]
