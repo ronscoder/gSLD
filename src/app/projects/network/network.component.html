@@ -1,3 +1,9 @@
-<p>
-  network works!
-</p>
+<div class="network">
+  {{nid}} | {{nhead.name}} <small>{{nhead.label}}</small>
+  <div *ngFor="let sn of  nhead.subnets">
+    {{sn}}
+  </div>
+
+<h3>Activities</h3>{{nhead.label}}
+<app-activity *ngFor="let act of activities" [actid]="act"></app-activity>
+</div>

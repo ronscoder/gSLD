@@ -1,0 +1,7 @@
+<h2>{{pid}}</h2>
+<h3>{{phead?.name}}</h3>
+<h4>{{phead?.status}}</h4>
+<div>{{phead?.startdate1}}</div>
+<div>{{phead?.enddate1}}</div>
+<h2>Networks</h2>
+<app-network *ngFor="let nid of networks" [nid]='nid'></app-network>
