@@ -1,9 +1,12 @@
 <div class="nonprint">
   <h2 style="box-shadow: 1px 1px 1px">GSLD</h2>
+  <div class="ui active inverted dimmer" *ngIf="data.loading">
+    <div class="ui mini loader"></div>
+  </div>
   <div id="modules">
-    <button routerLink='/sld'>Prepare SLD (Distribution)</button>
+    <!--<button routerLink='/sld'>Prepare SLD (Distribution)</button>
     <button routerLink='/gpx'>Parse GPX Waypoints</button>
-    <button routerLink='/projects'>Projects</button>
+    <button routerLink='/projects'>Projects</button>-->
   </div>
 </div>
 <br>
@@ -12,3 +15,6 @@
 <!--<div id="map2" style="width: 90%; height: 400px;"></div>
 
 <input type="file" id="file" (change)="handleFiles($event.target.files)" accept=".gpx">-->
+<!--<app-network [nid]="'net1'"></app-network>-->
+<!--<app-project></app-project>-->
+<app-projects></app-projects>

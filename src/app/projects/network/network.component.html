@@ -1,9 +1,5 @@
-<div class="network">
-  {{nid}} | {{nhead.name}} <small>{{nhead.label}}</small>
-  <div *ngFor="let sn of  nhead.subnets">
-    {{sn}}
-  </div>
-
-<h3>Activities</h3>{{nhead.label}}
-<app-activity *ngFor="let act of activities" [actid]="act"></app-activity>
+<button class="ui button" (click)="showSites = !showSites">{{name}}</button>
+<div *ngIf="showSites">
+  <!--<h3>Sites</h3>-->
+  <app-site *ngFor="let siteref of sites" [sid]="siteref[0]"></app-site>
 </div>

@@ -1,0 +1,13 @@
+{
+    "tid1": {
+        "name": "tid1 - task",
+        "unit": "EA",
+        "maxqty": 20,
+        "progress": [
+            {"qty": 12, "issueref": "iss1"}
+        ]
+    },
+    "tid2": {
+        "name": "tid2 - task"
+    }
+}

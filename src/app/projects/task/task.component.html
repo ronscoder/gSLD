@@ -1,0 +1,174 @@
+<div class="ui accordion">
+    <div class="title" (click)="expanded = !expanded" [ngClass]="{'active': expanded}">
+        <table class="ui table">
+            <tr>
+                <td class="two wide"><b>{{name}}</b></td>
+                <td class="two wide">
+                    <div class="ui mini tag label" [ngClass]="service.statusLabel(lastStatus)">{{lastStatus}}</div>
+                </td>
+                <td class="four wide">
+                    <progress value="{{latestProgres?.qty}}" max="{{maxqty}}">
+                    </progress>
+                    {{latestProgres?.qty || 0}}/{{maxqty}}
+                </td>
+                <td class="two wide">
+                    <div class="ui red label">
+                        issue
+                        <div class="detail">{{openIssueCount}}</div>
+                    </div>
+                </td>
+                <!--<td>
+                        <a (click)="expanded = !expanded"><i *ngIf="!expanded" class="angle double down icon"></i>
+            <i *ngIf="expanded" class="angle double up icon"></i>
+            </a>
+                    </td>-->
+            </tr>
+        </table>
+    </div>
+    <div class="content" [ngClass]="{'active': expanded}">
+        <div class="transition visible">
+            <!--<div *ngIf="expanded">-->
+            <div class="ui grid">
+                <div class="four wide column">
+                    <div class="ui vertical fluid tabular menu">
+                        <div class="item" [ngClass]="{'active': tab === 'header'}" (click)="tab='header'">Header</div>
+                        <div class="item" [ngClass]="{'active': tab === 'issues'}" (click)="tab='issues'">Issues</div>
+                        <div class="item" [ngClass]="{'active': tab === 'remarks'}" (click)="tab='remarks'">Remarks</div>
+                    </div>
+                </div>
+                <div class="twelve wide stretched column">
+                    <div class="ui segment" *ngIf="tab === 'header'">
+                        <div class="ui mini steps" *ngIf="startDateAct">
+                            <a class="step" [ngClass]="{'active': status === 'ongoing'}" (click)="setStatus('ongoing')">
+                                <div class="content">
+                                    <div class="ui mini tag label" [ngClass]="service.statusLabel('ongoing')">ongoing</div>
+                                    <!--<i class="toggle on orange icon"></i>
+                        ongoing -->
+                                </div>
+                            </a>
+                            <a class="step" [ngClass]="{'active': status === 'stopped'}" (click)="setStatus('stopped')">
+                                <div class="content">
+                                    <!--<i class="ban red icon"></i> stopped-->
+                                    <div class="ui mini tag label" [ngClass]="service.statusLabel('stopped')">stopped</div>
+                                </div>
+                            </a>
+                            <a class="step" [ngClass]="{'active': status === 'canceled'}" (click)="setStatus('canceled')">
+                                <div class="content">
+                                    <div class="ui mini tag label" [ngClass]="service.statusLabel('canceled')">canceled</div>
+                                </div>
+                            </a>
+                            <a class="step" [ngClass]="{'active': status === 'completed'}" (click)="setStatus('completed')">
+                                <div class="content">
+                                    <div class="ui mini tag label" [ngClass]="service.statusLabel('completed')">completed</div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="ui grid container">
+                            <div class="row">
+                                <div class="six wide column">
+                                    <div class="ui message" *ngIf="editing">Current</div>
+                                    <table class="ui compact table">
+                                        <tr>
+                                            <th>Max. Qty</th>
+                                            <td>{{maxqty}} {{unit}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Start Date (expected)</th>
+                                            <td>{{startDateExp | date}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Start Date (actual)</th>
+                                            <td *ngIf="startDateAct">{{startDateAct | date}}</td>
+                                            <td *ngIf="!startDateAct">
+                                                <input type="date" [(ngModel)]="fstartDateAct" name="startDateAct">
+                                                <button class="ui tiny button" (click)="setStart()">set</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>End Date (expected)</th>
+                                            <td>{{endDateExp | date}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>End Date (actual)</th>
+                                            <td>{{endDateExp | date}}</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                                <!--<div class="column" *ngIf="editing">
+                            <div class="ui message">Editing</div>
+                            <app-form-task [taskKeyForUpdate]="tid" [oldDataForUpdate]="this"></app-form-task>
+                        </div>-->
+                            </div>
+
+                            <div class="row" *ngIf="selIssueKey">
+                                <app-issue [issueref]="selIssueKey" (issueResolved)="issueResolved($event)" (issueCreateCanceled)="selIssueKey = null"></app-issue>
+                            </div>
+                            <div class="row">
+                                <h6>Progress</h6>
+
+                                <table class="ui celled table">
+                                    <tr>
+                                        <td class="three">{{date | date}}</td>
+                                        <td><input [(ngModel)]="qty" placeholder="enter new qty" required></td>
+                                        <td>
+                                            <div class="ui mini tag label" [ngClass]="service.statusLabel(status)">{{status}}</div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input [(ngModel)]="rem" placeholder="enter a remark">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a class="item" (click)="newIssue()" *ngIf="!ifNewIssue">+ Issue</a>
+                                            <div *ngIf="ifNewIssue">
+                                                <app-issue (issuecreated)="issueCreated($event)" (issueCreateCanceled)="issueCreateCanceled($event)"></app-issue>
+                                            </div>
+                                            <br>
+                                        </td>
+                                        <td><button *ngIf="!ifNewIssue" class="ui button" (click)="updateProgress()" [disabled]="!qty">update</button></td>
+                                    </tr>
+                                    <tr *ngFor="let p of progress">
+                                        <td>{{p[1]?.date | date}}</td>
+                                        <td>
+                                            <progress value="{{p[1]?.qty}}" max="{{maxqty}}">
+                                            </progress>
+                                            {{p[1]?.qty}}
+                                        </td>
+                                        <td>
+                                            <div class="ui mini tag label" [ngClass]="service.statusLabel(p[1]?.status)">{{p[1]?.status}}</div>
+                                        </td>
+                                        <td>
+                                            {{p[1]?.remark}}
+                                        </td>
+                                        <td>
+                                            <button class="ui mini label" *ngIf="p[1]?.issueh" [ngClass]="{'red':(p[1]?.issueh?.open), 'blue':!(p[1]?.issueh?.open)}"
+                                                (click)="showIssue(p[1]?.issueh?.refkey, p[0])">{{(p[1]?.issueh?.open)? 'open': 'closed'}}</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui segment" *ngIf="tab === 'issues'">
+                        <app-issue (issuecreated)="issueCreated($event)" *ngIf="ifNewIssue"></app-issue>
+                        <app-issue *ngFor="let issueref of issuerefs" [issueref]="issueref[0]"></app-issue>
+                    </div>
+                    <div class="ui segment" *ngIf="tab === 'remarks'">
+                        <div *ngIf="remarks">
+                            <div *ngFor="let rem of remarks;" class="item" style="display:flex">
+                                <div hidden> {{rem | json}}</div>
+                                <div class="ui label" [ngClass]="rem[1]?.label">{{rem[1]?.label}}</div>
+                                <div class="date">{{rem[1]?.date | date}}</div>
+                                <div class="description">{{rem[1]?.text}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

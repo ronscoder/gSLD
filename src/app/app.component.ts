@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import data from './data.json';
 import { Http } from '@angular/http';
 import { DateserviceService } from './dateservice.service';
@@ -10,19 +10,26 @@ import { DateserviceService } from './dateservice.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
   title = 'app works!';
   showResult = false;
-
+  testdata = {}
   constructor(
     private http: Http,
-    private data: DateserviceService
+    private data: DateserviceService,
+    private cdRef: ChangeDetectorRef
   ) { }
   ngOnInit() {
     // console.log(data);
     // console.log(result_json);
     // this.testlocation();
+    // this.gtestdata();
   }
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
+  }
+
   showRenderedMap() {
     this.showResult = !this.showResult;
   }

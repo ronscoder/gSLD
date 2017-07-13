@@ -1,0 +1,50 @@
+<div class="ui grid container">
+    <div class="row">
+        <h3>
+            <div class="ui mini label">Site</div>{{name}}</h3>
+    </div>
+    <div class="row">
+        <div class="ui top attached tabular menu">
+            <div class="item" [ngClass]="{'active':tab === 'exec'}" (click)="tab = 'exec'">Execution</div>
+            <div class="item" [ngClass]="{'active':tab==='settings'}" (click)="getSettings()">Settings</div>
+        </div>
+
+        <div class="ui bottom attached tab segment" [ngClass]="{'active':tab==='exec'}">
+            <app-activity *ngFor="let act of activities" [actid]="act[0]"></app-activity>
+        </div>
+        <div class="ui bottom attached tab segment" [ngClass]="{'active':tab==='settings'}">
+            <div class="ui grid">
+                <div class="four wide column">
+                    <div class="ui vertical fluid tabular menu">
+                        <a class="item" [ngClass]="{'active': settingTab==='newActivity'}">+ activity</a>
+                        <!--<a class="item">Pics</a>
+                <a class="item">Companies</a>
+                <a class="item">Links</a>-->
+                    </div>
+                </div>
+                <div class="twelve wide stretched column">
+                    <div class="ui segment" *ngIf="settingTab==='newActivity'">
+                        <app-new-activity [actDefKey]="'-Kogq8aP7VGGSdUKqpvX'" (actvCreated)="newActKey($event)"></app-new-activity>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="ui list">
+        <div class="item" *ngFor="let act of actSettings | toPairs">
+            <div class="ui slider checkbox">
+                <input type="checkbox" name="{{act[0]}}" (change)="settingTaskChanged()" [(ngModel)]="checkValue">
+                <label>{{act[1].name}}</label>
+            </div>
+        </div>
+    </div>-->
+        </div>
+    </div>
+    <!--<p *ngIf="!projectActs">No activity active</p>-->
+
+    <!--<div class="ui segment" *ngFor="let act of projectActs | toPairs">
+    <div class="ui slider checkbox">
+        <input type="checkbox" name="{{act[0]}}" (change)="setActToSite(act[0])" [checked]="act[1].active">
+        <label>{{act[1].name}}</label>
+    </div>
+</div>-->
+
+</div>

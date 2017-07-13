@@ -1,7 +1,32 @@
-<h2>{{pid}}</h2>
-<h3>{{phead?.name}}</h3>
-<h4>{{phead?.status}}</h4>
-<div>{{phead?.startdate1}}</div>
-<div>{{phead?.enddate1}}</div>
-<h2>Networks</h2>
-<app-network *ngFor="let nid of networks" [nid]='nid'></app-network>
+<h2>{{p?.name}}</h2>
+
+<div class="ui top attached tabular menu">
+    <div class="item" [ngClass]="{'active':tab === 'exec'}" (click)="tab = 'exec'">Execution</div>
+    <div class="item" [ngClass]="{'active':tab==='settings'}" (click)="getSettings()">Settings</div>
+</div>
+
+<div class="ui bottom attached tab segment" [ngClass]="{'active':tab==='exec'}">
+    <div *ngFor="let group of networkGroups | toPairs">
+        <h4 class="ui header">{{group[1]?.name}}</h4>
+        <app-network *ngFor="let nid of group[1]?.groups | toPairs" [nid]='nid[0]'></app-network>
+    </div>
+</div>
+<div class="ui bottom attached tab segment" [ngClass]="{'active':tab==='settings'}">
+    <h4>Project Activity Scope</h4>
+    <div class="ui list">
+        <div class="item" *ngFor="let act of actSettings | toPairs">
+            <div class="ui slider checkbox">
+                <input type="checkbox" name="{{act[0]}}" (change)="settingActivitykChanged(act[0], act[1].name)" [checked]='isActivityUnderScope(act[0])'>
+                <label>{{act[1].name}}</label>
+                <button class="ui mini button" (click)="selAct = act" *ngIf="isActivityUnderScope(act[0])">Summary Tasks</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="selAct">
+        <h5>Summary Task</h5>
+        <div *ngFor="let task of selAct[1].tasks | toPairs" class="ui slider checkbox">
+            <input type="checkbox" name="{{task[0]}}" (change)="setTaskToSummary(task[0])" [checked]="isTaskInSummary(task[0])">
+            <label>{{task[1].name}}</label>
+        </div>
+    </div>
+</div>

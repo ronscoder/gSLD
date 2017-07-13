@@ -1,0 +1,15 @@
+<div class="ui label">Activitiy Definition</div>
+<h4 class="ui header">{{actDefinition?.name}}</h4>
+<form #actForm="ngForm">
+    <input placeholder="activity name" ngModel name="actName" required>
+    <h5>Task Quantity</h5>
+    <table class="ui table">
+        <tr *ngFor="let task of actDefinition?.tasks | toPairs">
+            <td>{{task[1].name}}</td>
+            <input placeholder="quantity" ngModel [name]="task[0]" required>
+            <label>{{task[1].unit}}</label>
+            <!--<input hidden placeholder="unit" ngModel [name]="'unit'+task[0]">-->
+        </tr>
+    </table>
+    <button type="submit" [disabled]="!actForm.valid" (click)="submitActData(actForm)">+ Add</button>
+</form>

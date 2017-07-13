@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class DateserviceService {
   xlsxdata: any;
   nextComponent: any;
+  loading = false;
   constructor() { }
 
   parseXML(file, cb) {

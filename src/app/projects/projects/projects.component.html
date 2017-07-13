@@ -1,3 +1,36 @@
-<div *ngFor="let p of  ps">
-  {{p}} <button [routerLink]="['/projects', p]">Select</button>
+<div>
+  Select project
+  <!--<div *ngIf="selp">
+    {{selp[1].name}}
+  </div>-->
+  <sm-dropdown>
+    <sm-item *ngFor="let p of  ps | toPairs" (click)="selectProject(p)">
+      {{p[1].name}}
+    </sm-item>
+  </sm-dropdown>
+  <ng-container *ngIf="selp"><b>{{selp[1].name}}</b></ng-container>
 </div>
+<!--<ng-container *ngFor="let p of  ps | toPairs">
+  <div class="item" (click)="selectProject(p)" *ngIf="ifShowList">
+    {{p[1].name}}
+  </div>
+</ng-container>-->
+<!--<div *ngFor="let p of  ps">
+  {{p[1].name}} <button (click)="selectProject(p[1])">Select</button>
+</div>-->
+<div *ngIf="selp">
+  <app-project [pKey]="selp[0]"></app-project>
+</div>
+
+
+<!--<div class="ui horizonatal divider"></div>-->
+<!--<app-activity [actid]="'act1'"></app-activity>-->
+<!--<app-task [tid]="'tid1'"></app-task>-->
+<div style="display: flex">
+  <!--<app-setart style="width: 50%"></app-setart>-->
+  <!-- <app-site [sid]="'net1'"></app-site> -->
+
+  <!--<app-project *ngFor="let p of  ps | toPairs" [pKey]="p[0]"></app-project>-->
+</div>
+
+<!--<app-new-activity [actDefKey]="'-Kogq8aP7VGGSdUKqpvX'" (actvCreated)="newActKey($event)"></app-new-activity>-->

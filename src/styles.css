@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+body{
+    font-family: 'Titillium Web';
+}
 #map {
     width: 98%;
     height: 600px;
@@ -17,10 +20,6 @@
     }
 }
 
-input {
-    height: 2em;
-    font-family: Courier New, Courier, monospace;
-}
 
 .a4 {
     width: (210-20)mm;
@@ -31,3 +30,40 @@ input {
     width: (216-20)mm;
     height: (356-20)mm;
 }
+
+
+/*td * {
+    /*margin-left: 4px;*/
+    /*vertical-align: middle;
+    padding-right: 10px;
+}*/
+
+
+div{
+    padding-left: 4px;
+}
+
+.figure{
+    font-weight: bold;
+}
+
+
+    .box{
+        border: 1px solid grey;
+        box-shadow: 0px 0px 0.5px;
+
+    }
+    .box .topbar {
+        background-color: deepskyblue;
+                padding: 4px;
+        color: whitesmoke;
+        font-family: sans-serif;
+        display: flex;
+        justify-content: space-between
+    }
+    .box .topbar .right{
+        cursor: pointer;
+    }
+    .box .body{
+        padding: 4px;
+    }

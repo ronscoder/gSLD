@@ -1,0 +1,39 @@
+<table (click)="ifMore = !ifMore" class="ui small selectable celled table">
+  <tbody>
+    <tr>
+      <td class="eight wide" style="display: flex; justify-content: space-between">
+        <h5>{{name}}</h5>
+        <div class="ui tiny label">{{defName}}</div>
+      </td>
+      <td class="three wide">
+        <!--<div class="ui tag label">{{tasksProgress}}</div>-->
+      </td>
+      <td>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="ifMore">
+  <div class="ui top attached tabular menu">
+    <div class="item" [ngClass]="{'active': tab === 'tasks'}" (click)="tab='tasks'">Tasks</div>
+    <div class="item" [ngClass]="{'active': tab === 'remarks'}" (click)="tab='remarks'">Remarks</div>
+  </div>
+  <div class="ui bottom attached active tab segment" [ngClass]="{'active': tab === 'tasks'}">
+    <app-task *ngFor="let taskref of taskrefs" [tid]="taskref[0]" (statusChanged)="updateTaskStatus($event, taskref[0])" style="width: 90%"></app-task>
+  </div>
+  <div class="ui bottom attached active tab segment" [ngClass]="{'active': tab === 'remarks'}">
+    <div style="display:flex">
+      <div>
+        {{date | date}}
+      </div>
+      <div><input [(ngModel)]="remtext" placeholder="enter a remark" (keyup.enter)="addRemark()"></div>
+      <div></div>
+    </div>
+    <div *ngFor="let rem of remarks" style="display:flex">
+      <div>{{rem[1]?.date | date}}</div>
+      <div>{{rem[1]?.text}}</div>
+      <div>{{rem[1]?.label}}</div>
+    </div>
+  </div>
+</div>

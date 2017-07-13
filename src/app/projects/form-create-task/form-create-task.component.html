@@ -1,0 +1,34 @@
+<form [formGroup]="taskHeadForm">
+  <table class="ui collapsing compact table">
+    <tr>
+      <th>Name</th>
+      <td><input formControlName="name" required placeholder="name of task" name="name"></td>
+    </tr>
+    <tr>
+      <th>Max. Qty</th>
+      <td>
+        <input formControlName="maxqty" placeholder="maximum qty" required name="maxqty">
+        <input formControlName="unit" placeholder="unit" required name="unit" style="width: 5ch">
+      </td>
+    </tr>
+    <tr>
+      <th>Start Date (expected)</th>
+      <td><input type="date" formControlName="startDateExp" required name="startDateExp"></td>
+    </tr>
+    <tr>
+      <th>Start Date (actual)</th>
+      <td><input type="date" formControlName="startDateAct" name="startDateAct" disabled></td>
+    </tr>
+    <tr>
+      <th>End Date (expected)</th>
+      <td><input type="date" formControlName="endDateExp" required name="endDateExp"></td>
+    </tr>
+    <tr>
+      <th>End Date (actual)</th>
+      <td><input type="date" formControlName="endDateAct" name="endDateAct" disabled></td>
+    </tr>
+  </table>
+  <button class="ui tiny button" [disabled]="!taskHeadForm.valid" (click)="addTask()" *ngIf="actKeyOfNewTask">add</button>
+  <button class="ui tiny button" [disabled]="!taskHeadForm.valid" (click)="updateTask()" *ngIf="taskKeyForUpdate">update</button>
+  <!--<button class="ui tiny red button" *ngIf>cancel</button>-->
+</form>

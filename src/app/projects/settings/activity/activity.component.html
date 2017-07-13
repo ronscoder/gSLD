@@ -1,0 +1,35 @@
+<div class="ui grid container">
+  <div class="row">
+    <h4>Activity Definition</h4>
+  </div>
+  <div class="row">
+    <div class="eight wide column">
+      <input [(ngModel)]="actName" required placeholder="Activity Name" required><button (click)="addNewAct()" [disabled]="!actName">
+        Add new activity</button>
+      <div class="ui horizontal divider"></div>
+      <div class="ui styled accordion">
+        <ng-container *ngFor="let act of activities">
+          <div class="title" (click)="selAct = act[0]" [ngClass]="{'active': selAct === act[0] }">
+            <i class="dropdown icon"></i> {{act[1].name}}
+          </div>
+          <div class="content" [ngClass]="{'active': selAct === act[0] }">
+            <input [(ngModel)]="newTask" placeholder="Task Name">
+            <input [(ngModel)]="unit" placeholder="Unit">
+            <button (click)="addTask(act[0])" [disabled]="(!newTask) || !unit " class="ui small button">Add</button>
+            <div class="ui horizontal divider"></div>
+            <div *ngFor="let tf of act[1]?.tasks | toPairs" style="display:flex">
+              <span style="width: 50%">{{tf[1].name}}</span>
+              <button class="ui mini secondary right floated button" *ngIf="!tf[1].summary" (click)="setToSummary(tf[0], true)">Add to summary</button>
+              <button class="ui mini secondary right floated button" *ngIf="tf[1].summary" (click)="setToSummary(tf[0], false)">Remove from summary</button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <!--<div *ngFor="let tf of tasks">
+        {{tf.name}}
+      </div>-->
+    </div>
+    <div class="eight wide column">
+    </div>
+  </div>
+</div>

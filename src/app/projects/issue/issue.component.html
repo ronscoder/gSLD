@@ -1,0 +1,55 @@
+<div class="ui dismissible segment">
+  <i (click)="cancelIssue()" class="close icon"></i>
+  <div style="display:flex" *ngIf="createNewIssue">
+    <!-- Create new issue -->
+    <input [(ngModel)]="text" placeholder="Enter new issue text" required>
+    <button class="ui tiny red button" (click)="createIssue()">create</button>
+  </div>
+  <div class="ui grid container" *ngIf="issueref">
+    <div class="row">
+      <h5>Issue</h5>
+      <table class="ui compact table">
+        <td class="collapsing">{{dateopen | date}}</td>
+        <td class="eight wide">{{text}}</td>
+        <td><a (click)="showRem()">Remarks <i class="angle double down icon"></i></a>
+        </td>
+        <td><button class="mini ui positive button" *ngIf="open" (click)="resolved()">Resolve</button>
+          <div class="ui positive label" *ngIf="!open">Resolved</div>
+        </td>
+      </table>
+    </div>
+    <div class="row" *ngIf="showRemarks">
+      <div class="column">
+        <div class="ui card">
+          <div class="content">
+            <div class="ui small feed">
+              <h4 class="ui header">Remarks</h4>
+              <ng-container>
+                <div class="event" *ngFor="let rem of remarks">
+                  <div class="content">
+                    <div class="summary">
+                      <div class="meta">
+                        <div class="date">{{rem[1].date | date}} </div>
+                      </div>
+                      {{rem[1].text}}
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="event">
+                <div class="content">
+                  <div class="summary">
+                    <div class="meta">
+                      <div class="date"> {{today | date}}</div>
+                    </div>
+                    <input [(ngModel)]="newRemTxt" (keyup.enter)="addRem()" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

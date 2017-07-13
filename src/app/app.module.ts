@@ -11,6 +11,18 @@ import { UploadfileComponent } from './uploadfile/uploadfile.component';
 import { DateserviceService } from './dateservice.service';
 import { GpxComponent } from './gpx/gpx.component';
 import { ProjectsModule } from './projects/projects.module';
+import { AngularFireModule } from 'angularfire2'
+import { AngularFireDatabase } from 'angularfire2/database';
+import { ToPairsPipe } from './to-pairs.pipe'
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDveeoZp9Ua4vHGZW-c2cFFsV-lvNfniWk",
+  authDomain: "pmuiii-e78f3.firebaseapp.com",
+  databaseURL: "https://pmuiii-e78f3.firebaseio.com",
+  projectId: "pmuiii-e78f3",
+  storageBucket: "",
+  messagingSenderId: "139902991213"
+};
 
 @NgModule({
   declarations: [
@@ -18,13 +30,15 @@ import { ProjectsModule } from './projects/projects.module';
     RenderedMapComponent,
     GenSLDComponent,
     UploadfileComponent,
-    GpxComponent  ],
+    GpxComponent],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
     ProjectsModule,
+    AngularFireModule.initializeApp(config),
+    // AngularFireModule.initializeApp(config),
     RouterModule.forRoot([
       { path: 'sld', component: GenSLDComponent },
       { path: 'renderedmap', component: RenderedMapComponent },
@@ -36,7 +50,7 @@ import { ProjectsModule } from './projects/projects.module';
     ],
     )
   ],
-  providers: [DateserviceService],
+  providers: [DateserviceService, AngularFireDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
