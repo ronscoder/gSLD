@@ -1,15 +1,14 @@
-<div>
+<div class="ui dropdown">
   Select project
-  <!--<div *ngIf="selp">
-    {{selp[1].name}}
-  </div>-->
-  <sm-dropdown>
-    <sm-item *ngFor="let p of  ps | toPairs" (click)="selectProject(p)">
-      {{p[1].name}}
-    </sm-item>
-  </sm-dropdown>
-  <ng-container *ngIf="selp"><b>{{selp[1].name}}</b></ng-container>
+  <i class="dropdown icon" (click)="showList()"></i>
 </div>
+<div class="ui menu" *ngIf="ifShowList">
+  <a class="item" *ngFor="let p of  ps | toPairs" (click)="selectProject(p[0])">
+    {{p[1].name}}
+  </a>
+</div>
+<ng-container *ngIf="selp"><b>{{selp[1].name}}</b></ng-container>
+
 <!--<ng-container *ngFor="let p of  ps | toPairs">
   <div class="item" (click)="selectProject(p)" *ngIf="ifShowList">
     {{p[1].name}}
@@ -18,10 +17,13 @@
 <!--<div *ngFor="let p of  ps">
   {{p[1].name}} <button (click)="selectProject(p[1])">Select</button>
 </div>-->
+<router-outlet></router-outlet>
+<!--
+ <app-project [pKey]="'p01'"></app-project>
 <div *ngIf="selp">
   <app-project [pKey]="selp[0]"></app-project>
-</div>
-
+</div> 
+-->
 
 <!--<div class="ui horizonatal divider"></div>-->
 <!--<app-activity [actid]="'act1'"></app-activity>-->

@@ -1,0 +1,3 @@
+$('#homeMenu')
+  .sidebar('toggle')
+;

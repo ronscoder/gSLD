@@ -36,7 +36,7 @@ export class ProjectSettingsService {
   }
 
   setProjectSummaryTask(pKey, actKey, taskKey, value: boolean) {
-    return this.afdb.database.ref(`projects/data/${pKey}/settings/activities/${actKey}/summarytasks/${taskKey}`).set(value);
+    return this.afdb.database.ref(`settings/activities/${actKey}/summarytasks/${taskKey}`).set(value);
   }
 
   getActivityDefinition(key) {

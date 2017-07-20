@@ -25,6 +25,9 @@ export class GpxComponent implements OnInit {
     //   console.log(res.text)
     // })
     const file = files[0];
+    if(! file){
+      return;
+    }
     this.data.parseXML(file, (result) => {
       console.log(result);
       this.parsedGpx = result;

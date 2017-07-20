@@ -5,6 +5,9 @@ import { DateserviceService } from '../dateservice.service'
 @Injectable()
 export class ProjectserviceService {
   selectedProjectKey: any;
+  selProjectHeaderData: any;
+  selActKey: any;
+  selSiteKey: any;
   constructor(
     public http: Http,
     public afdb: AngularFireDatabase,
@@ -160,9 +163,12 @@ export class ProjectserviceService {
     return this.afdb.database.ref('projects/list')
   }
 
-  getProjectHeaderData(pKey) {
+  getProjectHeaderData(pKey, cb) {
     this.selectedProjectKey = pKey;
-    return this.afdb.database.ref('projects/data').child(pKey);
+    this.afdb.database.ref('projects/data').child(pKey).on('value', snap => {
+      this.selProjectHeaderData = snap.val();
+      cb(snap.key, snap.val());
+    })
   }
 
   statusLabel(val) {

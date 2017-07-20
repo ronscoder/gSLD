@@ -19,7 +19,7 @@ export class ActivityComponent implements OnInit {
   // FLAGS
   ifNewTask = false;
   ifMore = false;
-  
+
   // Templating
   tab = "tasks";
 
@@ -31,9 +31,11 @@ export class ActivityComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //TODO: get activity details
     console.log('activity key', this.actid);
     if (this.actid) {
+      this.getData();
+    } else {
+      this.actid = this.service.selActKey;
       this.getData();
     }
   }
@@ -88,7 +90,7 @@ export class ActivityComponent implements OnInit {
     })
   }
 
-  taskCreated(taskKey){
+  taskCreated(taskKey) {
     console.log('Task created', taskKey)
   }
 }

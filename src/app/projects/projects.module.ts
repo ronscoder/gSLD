@@ -14,25 +14,30 @@ import { FormCreateTaskComponent } from './form-create-task/form-create-task.com
 import { SettingsModule } from './settings/settings.module';
 import { ToPairsPipe } from '../to-pairs.pipe'
 import { CommonComponentsModule } from '../common-components/common-components.module';
-import { NgSemanticModule } from 'ng-semantic';
+import { NgSemanticModule } from 'ng-semantic/ng-semantic';
 import { NewActivityComponent } from './new-activity/new-activity.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    CommonComponentsModule,
     RouterModule.forChild([
-      { path: 'projects', component: ProjectsComponent },
-      { path: 'projects/:pid', component: ProjectComponent },
-      { path: 'projects/settings', component: ProjectComponent }
+      {
+        path: 'projects', component: ProjectsComponent,
+        children: [
+          { path: 'project', component: ProjectComponent },
+          { path: 'toSite', component: SiteComponent },
+        ]
+      }
     ]),
     FormsModule, ReactiveFormsModule,
-    SettingsModule, CommonComponentsModule, NgSemanticModule
+    SettingsModule, NgSemanticModule
   ],
   // exports: [RouterModule],
   providers: [ProjectserviceService],
   declarations: [NetworkComponent, ActivityComponent, TaskComponent,
     ProjectsComponent, ProjectComponent, IssueComponent, SiteComponent, FormCreateTaskComponent, NewActivityComponent],
-  exports: [ProjectsComponent]
+  exports: [RouterModule]
 })
 export class ProjectsModule { }

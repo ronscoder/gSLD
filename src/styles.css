@@ -1,7 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-
+html{
+    box-sizing: border-box;
+}
 body{
     font-family: 'Titillium Web';
+    color: grey !important;
+    background-color: #fff !important;
+    /*background-color: */
 }
 #map {
     width: 98%;
@@ -39,9 +44,9 @@ body{
 }*/
 
 
-div{
+/*div{
     padding-left: 4px;
-}
+}*/
 
 .figure{
     font-weight: bold;
@@ -67,3 +72,23 @@ div{
     .box .body{
         padding: 4px;
     }
+
+#body{
+    display: grid;
+    grid-template-rows: 2.5em auto 1em;
+    height: 100%;
+}
+
+#container{
+    /* height: 1000px; */
+    overflow-y: auto;
+}
+
+.pushable{
+    height: 100%;
+}
+
+#topbar{
+    display: flex;
+    justify-content: space-between
+}

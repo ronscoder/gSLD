@@ -69,7 +69,8 @@ export class TaskComponent implements OnInit {
   getTask() {
     // setTimeout(() => {
     // }, 2000);
-    this.service.appservice.loading = true;
+    this.service.appservice.status.loading = true;
+    this.service.appservice.status.text = 'reading tasks';
     this.service.getTask(this.tid, taskdata => {
       console.log('task data', taskdata)
       this.maxqty = taskdata.header.maxqty;
@@ -101,7 +102,7 @@ export class TaskComponent implements OnInit {
       }
       // Get latest progress
       console.log('lastest progress', this.latestProgres);
-      this.service.appservice.loading = false;
+      this.service.appservice.status = null;
     })
   }
 

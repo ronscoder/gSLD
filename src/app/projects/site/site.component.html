@@ -10,7 +10,17 @@
         </div>
 
         <div class="ui bottom attached tab segment" [ngClass]="{'active':tab==='exec'}">
-            <app-activity *ngFor="let act of activities" [actid]="act[0]"></app-activity>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+            <!--app-activity *ngFor="let act of activities" [actid]="act[0]"></app-activity-->
         </div>
         <div class="ui bottom attached tab segment" [ngClass]="{'active':tab==='settings'}">
             <div class="ui grid">

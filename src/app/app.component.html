@@ -1,20 +1,35 @@
-<div class="nonprint">
-  <h2 style="box-shadow: 1px 1px 1px">GSLD</h2>
-  <div class="ui active inverted dimmer" *ngIf="data.loading">
-    <div class="ui mini loader"></div>
+<div class="dimmer" *ngIf="ifShowMenu"></div>
+<div id="body">
+  <div id="topbar">
+    <h2>GSLD</h2>
+    <div (click)="showMenu()" style="cursor: pointer">
+      <i class="grid layout icon"></i> Browse Apps</div>
   </div>
-  <div id="modules">
-    <!--<button routerLink='/sld'>Prepare SLD (Distribution)</button>
-    <button routerLink='/gpx'>Parse GPX Waypoints</button>
-    <button routerLink='/projects'>Projects</button>-->
+  <div id="container">
+    <router-outlet></router-outlet>
+  </div>
+  <div id="footer" style="display:flex; justify-content: space-between">
+    <span>{{data.status?.text}}</span>
+    <div style="position: relative">
+      <div class="ui mini loader active" *ngIf="data.status?.loading">
+      </div>
+    </div>
   </div>
 </div>
-<br>
-<router-outlet></router-outlet>
+
+<!-- menu -->
+<div class="ui right sidebar inverted vertical menu" id="homeMenu" [ngClass]="{'visible uncover': ifShowMenu}">
+  <a (click)="ifShowMenu=!ifShowMenu">Hide</a>
+  <div class="ui celled divided list" style="padding: 1em;">
+    <a class="item" routerLink='/gpx'>Parse GPX Waypoints</a>
+    <a class="item" routerLink='/projects'>Projects</a>
+  </div>
+</div>
+
 
 <!--<div id="map2" style="width: 90%; height: 400px;"></div>
 
 <input type="file" id="file" (change)="handleFiles($event.target.files)" accept=".gpx">-->
 <!--<app-network [nid]="'net1'"></app-network>-->
 <!--<app-project></app-project>-->
-<app-projects></app-projects>
+<!--<app-projects></app-projects>-->

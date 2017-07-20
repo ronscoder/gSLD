@@ -1,5 +1,5 @@
 <h4>Select waypoint gpx file</h4><input type="file" id="file" (change)="handleFiles($event.target.files)" accept=".gpx">
-<br>
+<div class="ui horizontal divider"></div>
 <div *ngIf="parsedGpx">
     <button (click)="copytoclipboard(gpsdata)" class="ui button">Copy</button>
     <p class="ui yellow label" *ngIf="msg">{{msg}}</p>

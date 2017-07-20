@@ -13,7 +13,10 @@ import { GpxComponent } from './gpx/gpx.component';
 import { ProjectsModule } from './projects/projects.module';
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabase } from 'angularfire2/database';
-import { ToPairsPipe } from './to-pairs.pipe'
+import { ToPairsPipe } from './to-pairs.pipe';
+import { WrapperComponent } from './wrapper/wrapper.component';
+import { ProjectsComponent } from './projects/projects/projects.component';
+import { CommonComponentsModule } from './common-components/common-components.module';
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyDveeoZp9Ua4vHGZW-c2cFFsV-lvNfniWk",
@@ -30,7 +33,10 @@ var config = {
     RenderedMapComponent,
     GenSLDComponent,
     UploadfileComponent,
-    GpxComponent],
+    GpxComponent,
+    WrapperComponent,
+    // ProjectsComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -38,12 +44,14 @@ var config = {
     ReactiveFormsModule,
     ProjectsModule,
     AngularFireModule.initializeApp(config),
+    // CommonComponentsModule,
     // AngularFireModule.initializeApp(config),
     RouterModule.forRoot([
       { path: 'sld', component: GenSLDComponent },
       { path: 'renderedmap', component: RenderedMapComponent },
       { path: 'uploadfile', component: UploadfileComponent },
       { path: 'gpx', component: GpxComponent },
+      // { path: 'projects', component: ProjectsComponent }
       // { path: 'projects', component: ProjectsModule }.
       // { path: 'projects', redirectTo: '/projects', pathMatch: 'full' },
 

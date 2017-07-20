@@ -1,7 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import { ProjectSettingsService } from '../settings/project-settings.service';
-import { ProjectserviceService } from '../projectservice.service'
+import { ProjectserviceService } from '../projectservice.service';
+import Chart from 'chart.js';
+import { Router } from '@angular/router';
+
+declare const google: any;
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -9,6 +13,7 @@ import { ProjectserviceService } from '../projectservice.service'
 })
 export class ProjectComponent implements OnInit {
   @Input() pKey: any;
+  @ViewChild('activitiesChart') activitiesChart: ElementRef;
   // pKey: any;
   p: any;
   networkGroups: any;
@@ -20,23 +25,29 @@ export class ProjectComponent implements OnInit {
   tab = 'exec';
   selAct: any;
 
+  // Booleans
+  ifChartLoading = true;
+
   constructor(
     public projectservice: ProjectserviceService,
-    public settings: ProjectSettingsService
+    public settings: ProjectSettingsService,
+    public router: Router
   ) { }
 
   ngOnInit() {
-    // this.pKey = this.pObj[0];
-    this.projectservice.getProjectHeaderData(this.pKey).once('value', snap => {
-      // const pdata = snap.val()));
-      this.p = snap.val();
+    if (!this.pKey) {
+      this.pKey = this.projectservice.selectedProjectKey;
+    }
+    this.projectservice.getProjectHeaderData(this.pKey, (key, data) => {
+      this.p = data;
       if (this.p.settings) {
         this.actUnderScope = this.p.settings.activities;
       }
-
       this.networkGroups = this.p.netgroups;
       console.log('net groups', this.networkGroups);
-    })
+      this.prepareChartActivity();
+
+    });
   }
 
   getSettings() {
@@ -66,17 +77,62 @@ export class ProjectComponent implements OnInit {
   }
 
   setTaskToSummary(taskKey) {
-    this.settings.setProjectSummaryTask(this.pKey, this.selAct[0], taskKey, !this.isTaskInSummary(taskKey))
+    // this.settings.setProjectSummaryTask(this.pKey, this.selAct[0], taskKey, !this.isTaskInSummary(taskKey))
   }
 
-  isTaskInSummary(taskKey) {
-    if (this.actUnderScope[this.selAct[0]]) {
-      if (taskKey in this.actUnderScope[this.selAct[0]].summarytasks) {
-        return this.actUnderScope[this.selAct[0]].summarytasks[taskKey];
-      }
-      else return false;
-    } else {
-      return false;
+
+  prepareCompletionChart() {
+    const ctx = this.activitiesChart.nativeElement.getContext('2d');
+
+    const myPieChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: [
+          'completed',
+          'ongoing',
+          'not started'
+        ],
+        datasets: [
+          {
+            label: 'Site Activities Status',
+            data: [10, 20, 30],
+            backgroundColor: [
+              'blue', 'orange', 'red'
+            ]
+          }
+        ]
+      },
+    });
+  }
+
+  prepareChartActivity() {
+    this.projectservice.appservice.status = {
+      text: 'loading chart', loading: true
     }
+    //data
+    const remaining = this.p.progress.activities.total - this.p.progress.activities.completed;
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(() => {
+      this.projectservice.appservice.status = null;
+      this.ifChartLoading = false;
+      var data = google.visualization.arrayToDataTable([
+        ['Activity', this.p.settings.labels.activity],
+        [`Completed (${this.p.progress.activities.completed})`, this.p.progress.activities.completed],
+        [`Remaining (${remaining})`, remaining]
+      ]);
+      var options = {
+        title: `Completion status (${this.p.settings.labels.activity})`
+      };
+      // document.getElementById('piechart')
+      const ctx = this.activitiesChart.nativeElement;
+      // var chart = new google.visualization.PieChart(document.getElementById('activitiesChart'));
+      var chart = new google.visualization.PieChart(ctx);
+      chart.draw(data, options);
+    });
+  }
+
+  toSite(siteKey) {
+    this.projectservice.selSiteKey = siteKey;
+    this.router.navigate(['/projects/toSite']);
   }
 }

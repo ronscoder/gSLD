@@ -10,6 +10,7 @@ import { ProjectSettingsService } from '../settings/project-settings.service'
 })
 export class SiteComponent implements OnInit {
   @Input() sid;
+  projectSettings: any;
 
   activities: any;
   name: string;
@@ -27,7 +28,11 @@ export class SiteComponent implements OnInit {
   ngOnInit() {
     //TODO: Fetch nhead for each network
     //TODO: Fetch activities
+    this.projectSettings = this.service.selProjectHeaderData.settings;
     if (this.sid) {
+      this.getData();
+    } else {
+      this.sid = this.service.selSiteKey;
       this.getData();
     }
   }
